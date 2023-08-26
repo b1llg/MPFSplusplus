@@ -45,15 +45,14 @@ bool Builder_Element(std::vector<Element>* elems, std::string line)
     return true;
 }
 
-bool Builder_Property(std::vector<Property>* props, std::string physic, std::string eltype)
+bool Builder_Property(std::vector<Property*>* props, std::string physic, std::string eltype, std::ifstream& file)
 {
     if (physic == "SLD")
     {
         if (eltype == "TRUSS")
         {
-            Property* prop = new PropertyTruss();
-            props->push_back(*prop);
-            delete prop;
+            Property* prop = new PropertyTruss{};
+            props->push_back(prop);
         }
         else
         {

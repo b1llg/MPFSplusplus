@@ -13,7 +13,7 @@ protected:
     int pid;                            // Property id
     int mid;                            // Material id
 
-    Property prop;                     // Element property
+    Property* prop;                     // Element property
 
     std::vector<int> nodes;             // Nodes vector
 

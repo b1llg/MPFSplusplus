@@ -9,7 +9,7 @@ int main()
      //Define common variable
     std::vector<Node>* grid = new std::vector<Node>;
     std::vector<Element>* elems = new std::vector<Element>;
-    std::vector<Property>* props = new std::vector<Property>;
+    std::vector<Property*>* props = new std::vector<Property*>;
 
     PreProcessor("input.dat", grid, elems, props);
 

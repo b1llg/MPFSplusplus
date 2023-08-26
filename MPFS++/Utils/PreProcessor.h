@@ -9,7 +9,7 @@
 #include "StringManipulators.h"
 
 
-void PreProcessor(std::string file_name, std::vector<Node>* grid, std::vector<Element>* elems, std::vector<Property>* props)
+void PreProcessor(std::string file_name, std::vector<Node>* grid, std::vector<Element>* elems, std::vector<Property*>* props)
 {
     // Open input file
     std::ifstream file(file_name);
@@ -76,7 +76,7 @@ void PreProcessor(std::string file_name, std::vector<Node>* grid, std::vector<El
 
             property_definition = String_Split(line);
 
-            Builder_Property(props, property_definition[1], property_definition[2]);
+            Builder_Property(props, property_definition[1], property_definition[2], file);
         }
         // last resort, read next line
         std::getline(file, line);

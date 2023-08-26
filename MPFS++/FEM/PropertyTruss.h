@@ -11,5 +11,6 @@ public:
 	
 	void SetId(int id);
 	void SetA(double A);
+	void Display();
 };
 
