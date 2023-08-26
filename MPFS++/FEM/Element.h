@@ -27,8 +27,9 @@ public:
     int GetEid();
     std::string GetType();
     int GetPid();
+    int GetMid();
     std::vector<int> GetNodes();
-    void SetProperty(Property prop);
+    bool SetProperty(std::vector<Property*>* props);
 
     // Destructor
     ~Element();

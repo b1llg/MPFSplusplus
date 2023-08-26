@@ -9,7 +9,7 @@
 #include "StringManipulators.h"
 
 
-void PreProcessor(std::string file_name, std::vector<Node>* grid, std::vector<Element>* elems, std::vector<Property*>* props)
+void PreProcessor(std::string file_name)
 {
     // Open input file
     std::ifstream file(file_name);
@@ -18,6 +18,11 @@ void PreProcessor(std::string file_name, std::vector<Node>* grid, std::vector<El
     {
         std::cerr << "Unable to open the file: " << file_name << std::endl;
     }
+
+    //Define common variable
+    std::vector<Node>* grid = new std::vector<Node>;
+    std::vector<Element>* elems = new std::vector<Element>;
+    std::vector<Property*>* props = new std::vector<Property*>;
 
 
     // Initialize line string to read input file
@@ -76,11 +81,27 @@ void PreProcessor(std::string file_name, std::vector<Node>* grid, std::vector<El
 
             property_definition = String_Split(line);
 
-            Builder_Property(props, property_definition[1], property_definition[2], file);
+            Builder_Property(props, property_definition[1], property_definition[2]);
         }
         // last resort, read next line
         std::getline(file, line);
     }
-
     file.close();
+
+    // Assign operation
+    Assign_Property(elems, props);
+
+    for (auto node : *grid)
+    {
+        std::cout << "Node #" << node.GetId() << " at (x): " << node.GetX() << std::fixed << std::setprecision(3) << std::endl;
+    }
+
+    for (auto el : *elems)
+    {
+        std::cout << "Element #" << el.GetEid() << " is an element of type: " << el.GetType() << std::endl;
+    }
+
+    delete grid;
+    delete elems;
+    delete props;
 }

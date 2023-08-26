@@ -24,20 +24,28 @@ bool Builder_Element(std::vector<Element>* elems, std::string line)
 {
     std::string type;
 
+    int id, pid, mid;
+
+    std::vector<int> Nodes;
+
     static_cast<std::stringstream>(line) >> type;
 
     if (type == "E1TR2")
     {
-        int id, pid, mid, n1, n2;
+         int n1, n2;
 
         static_cast<std::stringstream>(line) >> type >> id >> pid >> mid >> n1 >> n2;
 
-        std::vector<int> Node{ n1, n2 };
-
-        Element temp{ id, type, pid, mid, Node };
-
-        elems->push_back(temp);
+        Nodes.push_back(n1);
+        Nodes.push_back(n2);
     }
+
+    Element temp{ id, type, pid, mid, Nodes };
+
+
+    elems->push_back(temp);
+
+
 
 
 
@@ -45,8 +53,9 @@ bool Builder_Element(std::vector<Element>* elems, std::string line)
     return true;
 }
 
-bool Builder_Property(std::vector<Property*>* props, std::string physic, std::string eltype, std::ifstream& file)
+bool Builder_Property(std::vector<Property*>* props, std::string physic, std::string eltype)
 {
+    std::string line;
     if (physic == "SLD")
     {
         if (eltype == "TRUSS")
@@ -64,4 +73,14 @@ bool Builder_Property(std::vector<Property*>* props, std::string physic, std::st
         std::cerr << "Error in Builder_Property: physic(" << physic << ") not defined" << std::endl;
     }
 
+    return true;
+}
+
+bool Assign_Property(std::vector<Element>* elems, std::vector<Property*>* props)
+{
+    for (Element el : *elems)
+    {
+        el.SetProperty(props);
+    }
+    return false;
 }

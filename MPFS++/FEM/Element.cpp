@@ -31,14 +31,20 @@ int Element::GetPid()
     return pid;
 }
 
+int Element::GetMid()
+{
+    return mid;
+}
+
 std::vector<int> Element::GetNodes()
 {
     return nodes;
 }
 
-void Element::SetProperty(Property prop)
+bool Element::SetProperty(std::vector<Property*>* props)
 {
-    prop = prop;
+    prop = (*props)[mid-1];
+    return true;
 }
 
 Element::~Element()
